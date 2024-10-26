@@ -4,4 +4,7 @@ This x86 ASM command line program will encrypt/decrypt any file with the given p
 -Decide which format to use  
 -Make a hello world program  
 -Set up a makefile  
+-learn about .text and .data sections  
+-Read params  
+-check mode  
 
