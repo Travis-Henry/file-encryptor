@@ -1,35 +1,36 @@
 section .data
-	hello db "Hello, World!", 0xA, 0
+	usg db "Usage: file-encryptor <encrypt/decrypt> <key> <file>", 0xA, 0
+	success db "Successful encryption/decrypton!!", 0xA, 0
+	opnfail db "Unable to open file", 0xA, 0
 	ecryp db "encrypt", 0
 	dcryp db "decrypt", 0 
-	err db "There was an error", 0xA, 0
 	buffer_size dd 256
 section .bss
-	buffer resb 256		;this sectin is for uninitialized variables
+	buffer resb 256			;this section is for uninitialized variables
 
 section .text
 	global _start
 
 _start:
-	push ebp		;function prologue
+	push ebp			;function prologue
 	mov ebp, esp
-	sub esp, 4		;[ebp-4] is mode
+	sub esp, 4			;[ebp-4] is mode
 
-	mov eax, [ebp+4]	;check if 4 args
+	mov eax, [ebp+4]		;check if 4 args
 	cmp eax, 4
-	jne exit_fail
+	jne usage
 
 
-	mov esi, [ebp+12]	;check mode
+	mov esi, [ebp+12]		;check mode
 	push esi			
 	call check_mode
 	add esp, 4
 	cmp eax, -1
-	je exit_fail
-	mov dword[ebp-4], eax	;store mode in local variable
+	je usage
+	mov dword[ebp-4], eax		;store mode in local variable
 
 
-	mov esi, [ebp+16]	;encrypt/decrypt
+	mov esi, [ebp+16]		;encrypt/decrypt
 	mov edi, [ebp+20]
 	push esi
 	push edi
@@ -38,61 +39,51 @@ _start:
 
 
 
-
-
 	;TODO rename file
-	
-	
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-	;This will print
+exit_success:		  		;print success
 	mov eax, 4
 	mov ebx, 1
-	lea ecx, hello    ;Address to string
-	mov edx, 14	  ;Length of string
-	int 0x80          ;I think this is a sys call
+	lea ecx, success  		;address to string
+	mov edx, 34	  		;length of string
+	int 0x80          		;sys call
 
-exit_success:				;Exit success
 	mov eax, 1
 	xor ebx,ebx
 	int 0x80
-exit_fail:				;Exit fail
-
-
-	
-	mov eax, 4
-	mov ebx, 1
-	lea ecx, err    	;Address to string
-	mov edx, 19		  ;Length of string
-	int 0x80
+exit_fail:				;exit fail
 	
 	mov eax, 1
-	mov ebx, 1
+	mov ebx, 1			;returns 1
 	int 0x80
 
-check_mode:			;returns 0 for enc
-	push ebp		;1 for dec
-	mov ebp, esp		;-1 for err
+usage:
+	mov eax, 4			;user entered wrong format
+	mov ebx, 1
+	lea ecx, usg
+	mov edx, 53 
+	int 0x80
+	jmp exit_fail
+
+open_fail:
+	mov eax, 4
+	mov ebx, 1
+	lea ecx, opnfail
+	mov edx, 20
+	jmp exit_fail
+
+check_mode:				;returns 0 for enc
+	push ebp			;1 for dec
+	mov ebp, esp			;-1 for err
 	
 
 	lea esi, ecryp
 	mov edi, [ebp+8]
 
 
-	push esi		;compare encrypt
+	push esi			;compare encrypt
 	push edi
 	call strcmp
 	add esp, 8		
@@ -104,7 +95,7 @@ check_mode:			;returns 0 for enc
 	lea esi, dcryp
 	mov edi, [ebp+8]
 
-	push esi		;compare decrypt
+	push esi			;compare decrypt
 	push edi
 	call strcmp
 	add esp, 8
@@ -112,7 +103,7 @@ check_mode:			;returns 0 for enc
 	cmp eax, 0
 	je .decrypt
 	
-	mov eax, -1		;error
+	mov eax, -1			;error
 	jmp .done
 	
 	.encrypt:
@@ -173,7 +164,7 @@ encrypt_decrypt:
 	int 0x80
 	mov esi, eax			;store file descriptor
 	cmp eax, 0
-	jl exit_fail
+	jl open_fail
 	
 	.loop:
 		
@@ -199,7 +190,7 @@ encrypt_decrypt:
 		.xor:
 			cmp byte [edi], 0	;check for end of key
 			jne .skip
-			mov edi, dword[ebp+12]
+			mov edi, dword[ebp+12]	;resets key if NULL
 			.skip:
 			mov al, byte [edi]
 			xor byte [buffer + ecx -1], al
@@ -220,11 +211,9 @@ encrypt_decrypt:
 
 
 	.close:
-
 	mov eax, 6			;this is to close the file
 	mov ebx, esi
 	int 0x80
-
 
 	mov esp, ebp			;function epilogue
 	pop ebp
