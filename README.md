@@ -1,5 +1,3 @@
-Here's an improved, structured, and clearer README for your *file-encryptor* project:
-
 ---
 
 # File Encryptor
@@ -26,7 +24,6 @@ File Encryptor is a command-line program written in x86 Assembly (ASM) that encr
    make
    ```
 3. Place the file you want to encrypt in the same directory as the program.
-4. Run the program with the appropriate command-line arguments to encrypt or decrypt your file.
 
 ## Usage
 To encrypt or decrypt a file, run:
