@@ -50,17 +50,18 @@ I took on this project with only limited knowledge of assembly, having briefly e
 6. **Encrypt/Decrypt Mode**: Implemented XOR encryption, realizing later that XOR is symmetric—encryption and decryption work identically.
 7. **Encryption Function**: Wrote the main encryption/decryption logic, using system calls to handle file operations in ASM.
 8. **Rotating Key**: Started with a single-byte key and then expanded it to support a rotating key for more robust encryption.
+9. **GDB**: I learned a lot about how useful gdb can be and started to get comfortable using it.
 
-![Alt text](/debugging.png)
+![Debuggin](/debugging.png)
 
 
 ### Reflections
-This project was both challenging and rewarding. I faced moments of doubt but ultimately came away with a much deeper understanding of low-level programming and assembly language.
+This project was both challenging and rewarding. I faced moments of doubt but ultimately came away with a much deeper understanding of low-level programming and assembly language, and I'm not even scratching the surface!
 
-## Future Improvements
+## Possible Future Improvements
 - Improve variable management to streamline the code further.
 - Add a custom file extension for encrypted files to distinguish them more easily.
-- Expand the encryption algorithm for added security.
+
 
 ## Acknowledgments
 Thank you to the organizers of RowdyHacks 2024, UTSA and the ASM community for the resources and support throughout this project!
