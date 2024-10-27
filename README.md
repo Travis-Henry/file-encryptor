@@ -56,8 +56,6 @@ This project was both challenging and rewarding. I faced moments of doubt but ul
 - Expand the encryption algorithm for added security.
 
 ## Acknowledgments
-Thank you to the organizers of RowdyHacks 2024 and the ASM community for the resources and support throughout this project!
+Thank you to the organizers of RowdyHacks 2024, UTSA and the ASM community for the resources and support throughout this project!
 
 ---
-
-This revision provides clear, organized sections for easy reading and understanding of your project!
