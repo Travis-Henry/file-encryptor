@@ -164,6 +164,8 @@ encrypt_decrypt:
 	sub esp, 12			;ebp-4 is i for the key
 					;ebp-8 is the file descriptor
 					;ebp-12 is for bytes read
+	
+	mov edi, [ebp+12]		;store the key				
 
 	mov eax, 5			;open a file
 	mov ebx, [ebp+8]		;ebp+8 is the file name
@@ -193,11 +195,18 @@ encrypt_decrypt:
 		mov edx, 1              ;SEEK_SET 1 is based of current
 		int 0x80          
 		neg ecx			;resets ecx back
-			
+	 
 		.xor:
-			xor byte [buffer + ecx - 1], 0xFA  ;temp value for key
+			cmp byte [edi], 0	;check for end of key
+			jne .skip
+			mov edi, dword[ebp+12]
+			.skip:
+			mov al, byte [edi]
+			xor byte [buffer + ecx -1], al
+			inc edi
+
 			dec ecx
-			jns .xor
+			jns .xor	;checks for negative
 	
 
 		
