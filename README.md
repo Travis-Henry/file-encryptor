@@ -8,6 +8,9 @@ File Encryptor is a command-line program written in x86 Assembly (ASM) that encr
 - **Encrypt/Decrypt Any File**: Uses XOR encryption with a custom, rotating key to secure any file.
 - **Command-Line Based**: Lightweight and efficient for command-line environments.
 - **Educational Journey**: A deeper dive into Assembly for low-level programming enthusiasts!
+![Alt text](/before.png)
+![Alt text](/after.png)
+
 
 ## Getting Started
 
