@@ -8,8 +8,9 @@ File Encryptor is a command-line program written in x86 Assembly (ASM) that encr
 - **Encrypt/Decrypt Any File**: Uses XOR encryption with a custom, rotating key to secure any file.
 - **Command-Line Based**: Lightweight and efficient for command-line environments.
 - **Educational Journey**: A deeper dive into Assembly for low-level programming enthusiasts!
-![Alt text](/before.png)
-![Alt text](/after.png)
+
+![Before](/before.png)
+![After](/after.png)
 
 
 ## Getting Started
@@ -49,6 +50,9 @@ I took on this project with only limited knowledge of assembly, having briefly e
 6. **Encrypt/Decrypt Mode**: Implemented XOR encryption, realizing later that XOR is symmetric—encryption and decryption work identically.
 7. **Encryption Function**: Wrote the main encryption/decryption logic, using system calls to handle file operations in ASM.
 8. **Rotating Key**: Started with a single-byte key and then expanded it to support a rotating key for more robust encryption.
+
+![Alt text](/debugging.png)
+
 
 ### Reflections
 This project was both challenging and rewarding. I faced moments of doubt but ultimately came away with a much deeper understanding of low-level programming and assembly language.
